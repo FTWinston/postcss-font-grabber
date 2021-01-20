@@ -313,7 +313,7 @@ describe('processDeclaration', () => {
         const cssSourceFilePath = '/var/project/public/style.css';
         const cssDestinationDirectoryPath = '/var/project/public/dist';
         //const downloadDirectoryPath = '/var/project/public/fonts/';
-        const downloadDirectoryPath = 'c:\\var\\project\\public\\fonts\\';
+        const downloadDirectoryPath = 'c:\\var\\project\\public\\fonts';
 
         const jobs = functions.processDeclaration(
             declaration,
@@ -334,7 +334,7 @@ describe('processDeclaration', () => {
                 declaration,
                 font: {
                     destinationDirectoryPath: downloadDirectoryPath,
-                    destinationRelativePath: "../fonts"
+                    destinationRelativePath: "..\\fonts"
                 },
             },
             {
@@ -349,7 +349,7 @@ describe('processDeclaration', () => {
                 declaration,
                 font: {
                     destinationDirectoryPath: downloadDirectoryPath,
-                    destinationRelativePath: "../fonts"
+                    destinationRelativePath: "..\\fonts"
                 },
             },
         ];

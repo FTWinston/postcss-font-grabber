@@ -35,7 +35,8 @@ describe('Downloader shloud download fonts correctly', () => {
 
         const fileName = 'font1.woff';
         const urlObject = url.parse('http://example.com/' + fileName);
-        const downloadDir = '/var/project/public/fonts/';
+        //const downloadDir = '/var/project/public/fonts/';
+        const downloadDir = 'c:\\var\\project\\public\\fonts\\';
 
         const downloader = new Downloader(fakeFs, fakeHttpGet, fakeHttpsGet);
         const fileInfo = downloader.download(urlObject, downloadDir);
