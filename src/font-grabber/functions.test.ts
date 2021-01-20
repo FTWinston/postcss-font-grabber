@@ -15,7 +15,7 @@ describe('parseOptions', () => {
 
         expect(settings).toEqual(<PluginSettings>{
             cssSourceDirectoryPath: undefined,
-            cssDestinationDirectoryPath: '/var/project/public/dist',
+            cssDestinationDirectoryPath: 'C:\\var\\project\\public\\dist',
             fontDirectoryPath: undefined,
             autoCreateDirectory: true,
         });
@@ -30,7 +30,7 @@ describe('parseOptions', () => {
 
         expect(settings).toEqual(<PluginSettings>{
             cssSourceDirectoryPath: undefined,
-            cssDestinationDirectoryPath: '/var/project/public/dist',
+            cssDestinationDirectoryPath: 'C:\\var\\project\\public\\dist',
             fontDirectoryPath: undefined,
             autoCreateDirectory: false,
         });
@@ -312,7 +312,8 @@ describe('processDeclaration', () => {
         };
         const cssSourceFilePath = '/var/project/public/style.css';
         const cssDestinationDirectoryPath = '/var/project/public/dist';
-        const downloadDirectoryPath = '/var/project/public/fonts/';
+        //const downloadDirectoryPath = '/var/project/public/fonts/';
+        const downloadDirectoryPath = 'c:\\var\\project\\public\\fonts\\';
 
         const jobs = functions.processDeclaration(
             declaration,
