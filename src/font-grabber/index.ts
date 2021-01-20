@@ -73,12 +73,12 @@ export class FontGrabber {
      */
     makeTransformer(): PostcssTransformer {
         return (root, result) => {
-            debug(`CSS file: [${root.source.input.file}]`);
+            debug(`CSS file: [${root.source?.input.file}]`);
 
             const postcssOptionsTo = this.getOptionFromPostcssResult(result, 'to');
 
             const cssOutputToDirectory = calculateCssOutputDirectoryPath(
-                root.source.input.file,
+                root.source?.input.file ?? '',
                 this.settings.cssSourceDirectoryPath,
                 this.settings.cssDestinationDirectoryPath,
                 postcssOptionsTo
@@ -100,7 +100,7 @@ export class FontGrabber {
                 if (isRemoteFontFaceDeclaration(node)) {
                     jobs.push(...processDeclaration(
                         <PostcssDeclaration>node,
-                        root.source.input.file,
+                        root.source?.input.file ?? '',
                         cssOutputToDirectory,
                         fontOutputToDirectory
                     ));
