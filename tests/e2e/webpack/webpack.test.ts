@@ -75,4 +75,75 @@ describe('webpack', () => {
       done();
     });
   });
+
+  
+  it('grabs inlined import', done => {
+    const mockDownloader = jest.fn().mockImplementation(fontSpec => {
+      const data = Readable.from([
+        `file:${fontSpec.css.sourceFile}\n`,
+        `url:${fontSpec.parsedSrc.urlObject.href}`,
+      ]);
+
+      return {
+        data,
+        mimeType: undefined,
+      };
+    });
+
+    const compiler = webpack({
+      mode: 'production',
+      entry: join(CssSrcDir, 'app2.js'),
+      module: {
+        rules: [
+          {
+            test: /\.css$/i,
+            use: [
+              'style-loader',
+              'css-loader',
+              {
+                loader: 'postcss-loader',
+                options: {
+                  postcssOptions: {
+                    plugins: [
+                      [
+                        "postcss-import-url",
+                        {
+                            modernBrowser: true,
+                        }
+                      ],
+                      postcssFontGrabber({
+                        cssSrc: CssSrcDir,
+                        cssDest: CssSrcDir,
+                        fontDest: CssDestFontDir,
+                        downloader: mockDownloader,
+                      }),
+                    ],
+                  },
+                },
+              },
+            ],
+          },
+          {
+            test: /\.(woff|woff2|eot|ttf|otf)$/,
+            use: ['file-loader'],
+          },
+        ],
+      },
+      output: {
+        path: WebpackDestDir,
+        filename: 'app2.bundle.js',
+      },
+    });
+
+    compiler.run((err, stats) => {
+      expect(err).toBeNull();
+      expect(stats).not.toBeUndefined();
+      if (stats!.hasErrors())  {
+        console.log('ERRORS', stats!.toJson().errors);
+      }
+      expect(stats!.hasErrors()).toBeFalsy();
+
+      done();
+    });
+  });
 });
